@@ -6,21 +6,50 @@ WPDock is a very basic but certainly usefull docker setup for working with WordP
 ## Create a new WordPress site
 
 ```sh
-## Clone repository
-$ git clone git@github.com:kadimi/wpdock.git my_project
+## Prepare settings.
+PROJECT_FOLDER=wpdock-project
+WPDOCK_PHPMA_PORT=8037
+WPDOCK_WP_ADMIN_EMAIL=admin@example.com
+WPDOCK_WP_ADMIN_PASSWORD=password
+WPDOCK_WP_PORT=8087
+WPDOCK_WP_TITLE="WPDock"
 
-## Go to project folder
-$ cd my_project
+##
+#
+# Do not change below this line.
+#
+##
 
-## [Optional] Change port
-$ WPDockPort=8081 && sed -i "s/8080:80/$WPDockPort:80/g" docker-compose.yml
+WPDOCK_WP_URL="http://localhost:$WPDOCK_WP_PORT"
 
-## Start containers
-$ docker-compose up -d
+## Clone repository.
+git clone git@github.com:kadimi/wpdock.git $PROJECT_FOLDER
 
-## Open website in browser
-$ browse "http://localhost:$WPDockPort" # Linux
-$ open "http://localhost:$WPDockPort" # Mac
+## Go to project folder.
+cd $PROJECT_FOLDER
+
+## Change ports
+sed -i "s/8080:80/$WPDOCK_WP_PORT:80/g" docker-compose.yml
+sed -i "s/8036:80/$WPDOCK_PHPMA_PORT:80/g" docker-compose.yml
+
+## Start containers.
+docker-compose up -d
+
+## Install WordPress
+./wpdock core install \
+	--admin_user=admin \
+	--admin_email=$WPDOCK_WP_ADMIN_EMAIL \
+	--admin_password=WPDOCK_WP_ADMIN_PASSWORD \
+	--skip-email \
+	--title=$WPDOCK_WP_TITLE \
+	--url=$WPDOCK_WP_URL
+
+## Open website in browser.
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+	browse "http://localhost:$WPDOCK_WP_PORT"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+	open "http://localhost:$WPDOCK_WP_PORT"
+fi
 ```
 
 ## WP-CLI from host
