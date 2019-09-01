@@ -15,12 +15,13 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-      - '33060:3306'
+      - '33060:33060'
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+      SQL_INTERNAL_PORT: 33060
     networks:
       - wpnet
 
