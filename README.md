@@ -35,13 +35,13 @@ sed -i "s/WORDPRESS_DB_NAME: wordpress/WORDPRESS_DB_NAME: wordpress_$WPDOCK_PROJ
 docker-compose up -d
 
 ## Install WordPress
-sleep 10
+sleep 15
 ./wpdock core install \
 	--admin_user=admin \
 	--admin_email=admin@example.com \
 	--admin_password=password \
 	--skip-email \
-	--title=WPDock \
+	--title=$WPDOCK_PROJECT_FOLDER \
 	--url=$WPDOCK_WP_URL
 
 ## Open website in browser.
