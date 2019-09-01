@@ -30,9 +30,9 @@ git clone git@github.com:kadimi/wpdock.git $PROJECT_FOLDER
 cd $PROJECT_FOLDER
 
 ## Change ports
-sed -i "s/8036:80/$WPDOCK_DB_PORT:3306/g" docker-compose.yml
+sed -i "s/33060:3306/$WPDOCK_DB_PORT:3306/g" docker-compose.yml
 sed -i "s/8080:80/$WPDOCK_WP_PORT:80/g" docker-compose.yml
-sed -i "s/8036:80/$WPDOCK_PHPMA_PORT:80/g" docker-compose.yml
+sed -i "s/8030:80/$WPDOCK_PHPMA_PORT:80/g" docker-compose.yml
 
 ## Start containers.
 docker-compose up -d
