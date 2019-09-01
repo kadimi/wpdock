@@ -39,7 +39,7 @@ docker-compose up -d
 ./wpdock core install \
 	--admin_user=admin \
 	--admin_email=$WPDOCK_WP_ADMIN_EMAIL \
-	--admin_password=WPDOCK_WP_ADMIN_PASSWORD \
+	--admin_password=$WPDOCK_WP_ADMIN_PASSWORD \
 	--skip-email \
 	--title=$WPDOCK_WP_TITLE \
 	--url=$WPDOCK_WP_URL
