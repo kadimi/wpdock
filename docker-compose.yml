@@ -16,7 +16,7 @@ services:
       - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress_wpaior
+      MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
     networks:
@@ -29,7 +29,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - '8031:80'
+      - '8030:80'
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password 
@@ -42,13 +42,13 @@ services:
       - db
     image: wordpress
     ports:
-      - '8081:80'
+      - '8080:80'
     restart: always
     volumes: 
       - './files/:/var/www/html'
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_NAME: wordpress_wpaior
+      WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
