@@ -1,0 +1,14 @@
+#!/bin/bash
+
+container="`basename $(pwd)`_wordpress_1"
+command="${@:1}"
+
+docker run -it \
+	--rm \
+	--user 33:33 \
+	--volumes-from $container \
+	--network container:$container \
+	-e WP_CLI_CACHE_DIR="/tmp/wp-cli-cache" \
+	wordpress:cli $command
+
+exit
