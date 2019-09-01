@@ -12,7 +12,6 @@ WPDOCK_PHPMA_PORT=8030
 WPDOCK_WP_ADMIN_EMAIL=admin@example.com
 WPDOCK_WP_ADMIN_PASSWORD=password
 WPDOCK_WP_PORT=8080
-WPDOCK_DB_PORT=33060
 WPDOCK_WP_TITLE="WPDock"
 
 ##
@@ -30,20 +29,22 @@ git clone git@github.com:kadimi/wpdock.git $PROJECT_FOLDER
 cd $PROJECT_FOLDER
 
 ## Change ports
-sed -i "s/33060:3306/$WPDOCK_DB_PORT:3306/g" docker-compose.yml
 sed -i "s/8080:80/$WPDOCK_WP_PORT:80/g" docker-compose.yml
 sed -i "s/8030:80/$WPDOCK_PHPMA_PORT:80/g" docker-compose.yml
+sed -i "s/MYSQL_DATABASE: wordpress/MYSQL_DATABASE: wordpress_$PROJECT_FOLDER/g" docker-compose.yml
+sed -i "s/WORDPRESS_DB_NAME: wordpress/WORDPRESS_DB_NAME: wordpress_$PROJECT_FOLDER/g" docker-compose.yml
 
 ## Start containers.
 docker-compose up -d
 
 ## Install WordPress
+sleep 10
 ./wpdock core install \
 	--admin_user=admin \
 	--admin_email=$WPDOCK_WP_ADMIN_EMAIL \
 	--admin_password=$WPDOCK_WP_ADMIN_PASSWORD \
 	--skip-email \
-	--title=$WPDOCK_WP_TITLE \
+	--title='$WPDOCK_WP_TITLE' \
 	--url=$WPDOCK_WP_URL
 
 ## Open website in browser.
